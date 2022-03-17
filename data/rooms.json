@@ -1,0 +1,27 @@
+[
+  {
+    "_id": "master_bedroom",
+    "name": "Master Bedroom",
+    "portals": [
+      {
+        "_id": "hallway",
+        "device": "bedroom_occupancy_sensor",
+        "enter_state": 1,
+        "exit_state": 2
+      }
+    ],
+    "devices": ["desk_sensor", "bed_sensor"]
+  },
+  {
+    "_id": "hallway",
+    "name": "Hallway",
+    "portals": [
+      {
+        "_id": "master_bedroom",
+        "device": "bedroom_occupancy_sensor",
+        "enter_state": 2,
+        "exit_state": 1
+      }
+    ]
+  }
+]
