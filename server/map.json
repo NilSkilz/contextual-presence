@@ -1,0 +1,48 @@
+{
+    "home": {
+        "name": "Home",
+        "owners": [
+            {
+                "id": "logan",
+                "name": "Logan"
+            },
+            {
+                "id": "dexter",
+                "name": "Dexter"
+            }
+        ],
+        "devices": [
+            {
+                "id": "sensor.electricity_usage"
+            }
+        ],
+        "floors": [
+            {
+                "level": 0,
+                "name": "Ground Floor",
+                "rooms": [
+                    {
+                        "id": "living_room",
+                        "name": "Living Room"
+                    },
+                    {
+                        "id": "gaming_room",
+                        "name": "Gaming Room",
+                        "devices": [
+                            {
+                                "entity_id": "sensor.electricity_usage",
+                                "owner_id": "logan",
+                                "rate_of_decay": "1"
+                            },
+                            {
+                                "entity_id": "sensor.dexter_s_xbox",
+                                "owner_id": "dexter",
+                                "rate_of_decay": "1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
