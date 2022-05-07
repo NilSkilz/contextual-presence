@@ -1,35 +1,24 @@
 ## What is Contextual-Presence
 
-Contextual-Presence is a [Home Assistant](https://home-assistant.com) integration that uses data from numerous sensors to determine presence in a smart home. 
+Contextual-Presence is a [Home Assistant](https://home-assistant.io) integration that uses data from numerous sensors to determine presence in a smart home. 
 
-### Markdown
+### The Basics
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+Presence detection in the home automation space has long been a difficult task. Most existing solutions require the tracking of a specific device (a phone or bluetooth device), simple motion sensors or cameras with facial or object detection.
 
-```markdown
-Syntax highlighted code block
+The aim of this project is to provide somewhat reliable presence detection in every room in the house, by combining the information from simple sensors, with an intelligent algorythm that understands the layout of your house.
 
-# Header 1
-## Header 2
-### Header 3
+#### What are the problems with other systems?
+Every approach (including this one) has downsides. For myself, I can't use bluetooth tracking as half the members of my family don't have devices. PIR sensors and microwave sensors are tripped by the dogs and camera's with face detection fail the WAF. 
 
-- Bulleted
-- List
 
-1. Numbered
-2. List
+#### What is required
+This project is fairly sensor agnostic. As a minimum, you should really have a simple motion (PIR) sensor in each room, and ideally an [entry/exit sensor](https://github.com/Lyr3x/Roode) on each major thoroughfare. 
 
-**Bold** and _Italic_ and `Code` text
+The more sensors the better, especially when it comes to presence detection.
 
-[Link](url) and ![Image](src)
-```
+#### Occupancy vs Presence
+In simple terms, occupancy tells us if a space is occupied by a person, while presence tells us which specific person is in a space.  This project aims to do both - detecting the presence of a person, and (if possible) determining which person it is.
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
 
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/NilSkilz/contextual-presence/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+### How Does it Work
