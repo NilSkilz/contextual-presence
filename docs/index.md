@@ -4,8 +4,8 @@ title: Introduction
 nav_order: 1
 ---
 
-Beta
-{: .label }
+Alpha
+{: .label .label-red}
 
 
 # Introduction
