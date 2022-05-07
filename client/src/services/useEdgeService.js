@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
+// const baseUrl = '/api';
+const baseUrl = 'http://localhost:3001';
+
 const getPosition = (id) => {
   return {
     x: 20,
@@ -12,7 +15,6 @@ function useEdgeService() {
   const [edges, setEdges] = useState([]);
 
   useEffect(() => {
-    console.log(edges);
     if (edges) {
       edges.forEach((edge) => {
         updateEdge(edge, false);
@@ -21,8 +23,7 @@ function useEdgeService() {
   }, [edges]);
 
   const getEdges = () => {
-    axios.get('/api/edges').then(({ data }) => {
-      console.log({ data });
+    axios.get(`${baseUrl}/edges`).then(({ data }) => {
       setEdges(
         data.map((edge) => {
           return { ...edge, id: edge._id };
@@ -32,18 +33,24 @@ function useEdgeService() {
   };
 
   const updateEdge = (edge, withUpdate = true) => {
-    axios.put(`/api/edges/${edge._id}`, edge).then(({ data }) => {
+    axios.put(`${baseUrl}/edges/${edge._id}`, edge).then(({ data }) => {
       if (withUpdate) getEdges();
     });
   };
 
   const addEdge = (params) => {
-    axios.post('/api/edges', params).then(({ data }) => {
+    axios.post(`${baseUrl}/edges`, params).then(({ data }) => {
       getEdges();
     });
   };
 
-  return { edges, setEdges, getEdges, addEdge, updateEdge };
+  const deleteEdge = (edge) => {
+    axios.delete(`${baseUrl}/edges/${edge._id}`).then(() => {
+      getEdges();
+    });
+  };
+
+  return { edges, setEdges, getEdges, addEdge, updateEdge, deleteEdge };
 }
 
 export default useEdgeService;

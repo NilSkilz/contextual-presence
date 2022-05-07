@@ -19,6 +19,7 @@ services:
     volumes:
       - /app/node_modules
       - ./server:/app
+      - ./server/data/store:/server/data/store
 
   client:
     stdin_open: true

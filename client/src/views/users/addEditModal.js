@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, {useEffect, useState} from 'react'
 import {Modal, ModalHeader, ModalBody, ModalFooter, Button, UncontrolledAccordion, AccordionItem, AccordionHeader, AccordionBody} from 'reactstrap';
 
-const addEditModal = ({isOpen = false, setIsOpen, user: userToEdit}) => {
+const AddEditModal = ({isOpen = false, setIsOpen, user: userToEdit}) => {
 
     const [user, setUser] = useState(userToEdit || {})
 
@@ -23,7 +23,7 @@ const addEditModal = ({isOpen = false, setIsOpen, user: userToEdit}) => {
     <div className="mb-3">
         <label className="form-label" for="id">ID</label>
         <input className="form-control" id="id" type="text" placeholder="joe_blogs" value={user._id} disabled={isEdit} onChange={(({target}) => {
-            setUser({...user, _id: target.value})
+            setUser({...user, id: target.value})
         })}/>
     </div>
     <div className="mb-3">
@@ -82,4 +82,4 @@ const addEditModal = ({isOpen = false, setIsOpen, user: userToEdit}) => {
   );
 };
 
-export default addEditModal;
+export default AddEditModal;

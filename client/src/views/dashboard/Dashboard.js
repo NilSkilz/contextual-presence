@@ -1,19 +1,17 @@
 import { useEffect, useState, useCallback } from 'react';
 import ReactFlow, {
-  useNodesState,
   applyEdgeChanges,
   applyNodeChanges,
-  useEdgesState,
-  addEdge,
   Background,
   Controls,
-  updateEdge,
 } from 'react-flow-renderer';
 import { Button } from 'reactstrap';
 import useRoomService from '../../services/useRoomService';
-import EditRoomModal from './EditRoomModal';
-import EditEdgeModal from './EditEdgeModal';
+import RoomModal from '../modals/RoomModal';
+import EditEdgeModal from '../modals/EdgeModal';
 import useEdgeService from '../../services/useEdgeService';
+import ButtonEdge from './Components/ButtonEdge';
+import RoomNode from './Components/RoomNode';
 
 const Dashboard = () => {
   const { rooms, setRooms, getRooms, addRoom, updateRoom } = useRoomService();
@@ -36,29 +34,25 @@ const Dashboard = () => {
   );
 
   const onEdgesChange = useCallback(
-    (changes) =>
-      setEdges((nds) => {
-        console.log({ changes, nds });
-        applyEdgeChanges(changes, nds);
-      }),
+    (changes) => setEdges((nds) => applyEdgeChanges(changes, nds)),
     [setEdges]
   );
 
   const onConnect = (params) =>
-    setEdges((els) => {
-      console.log({ params, els });
-      params.label = 'Double Click to Set Entity';
-      return addEdge(params);
+    setEdges((eds) => {
+      // const label = 'Double Click to Set Entity';
+      const type = 'buttonEdge';
+      return addEdge({ ...params, type }, eds);
     });
 
   const onNodeDoubleClick = (event, node) => {
-    console.log({ node });
-    setRoomToEdit(node);
+    setRoomToEdit(rooms.find((r) => r._id === node._id));
   };
 
-  const onEdgeDoubleClick = (event, node) => {
-    console.log({ node });
-    setEdgeToEdit(node);
+  const onEdgeClick = (event, edge) => {
+    // For some reason the label disapears??!
+    console.log(edges);
+    setEdgeToEdit(edges.find((e) => e._id === edge.id));
   };
 
   return (
@@ -66,23 +60,23 @@ const Dashboard = () => {
       <EditEdgeModal
         isOpen={!!edgeToEdit}
         setIsOpen={setEdgeToEdit}
-        room={roomToEdit}
+        edge={edgeToEdit}
         updateEdge={(edge) => {
-          const roomToReplace = rooms.find((r) => r.id === room.id);
-          const mutatableArray = [...rooms];
-          const index = rooms.indexOf(roomToReplace);
-          if (roomToReplace) {
-            mutatableArray.splice(index, 1, room);
-            setRooms(mutatableArray);
+          const edgeToReplace = edges.find((e) => e._id === edge._id);
+          const mutatableArray = [...edges];
+          const index = edges.indexOf(edgeToReplace);
+          if (edgeToReplace) {
+            mutatableArray.splice(index, 1, edge);
+            setEdges(mutatableArray);
           }
         }}
       />
-      <EditRoomModal
+      <RoomModal
         isOpen={!!roomToEdit}
         setIsOpen={setRoomToEdit}
         room={roomToEdit}
         updateRoom={(room) => {
-          const roomToReplace = rooms.find((r) => r.id === room.id);
+          const roomToReplace = rooms.find((r) => r._id === room._id);
           const mutatableArray = [...rooms];
           const index = rooms.indexOf(roomToReplace);
           if (roomToReplace) {
@@ -106,7 +100,16 @@ const Dashboard = () => {
           nodesConnectable
           elementsSelectable
           nodesDraggable
-          nodes={rooms}
+          nodes={[
+            ...rooms.map((room) => {
+              return {
+                ...room,
+                data: {
+                  label: <RoomNode room={room} />,
+                },
+              };
+            }),
+          ]}
           edges={edges}
           defaultZoom={1}
           minZoom={0.2}
@@ -116,9 +119,12 @@ const Dashboard = () => {
           onNodesChange={onNodesChange}
           onEdgesChange={onEdgesChange}
           onNodeDoubleClick={onNodeDoubleClick}
-          onEdgeUpdate={console.log}
+          // onEdgeUpdate={console.log}
+          onEdgeClick={onEdgeClick}
+          edgeTypes={{
+            buttonEdge: ButtonEdge,
+          }}
           onConnect={onConnect}
-          onEdgeDoubleClick={onEdgeDoubleClick}
         >
           <Background variant="dots" gap={12} size={0.4} />
           <Controls />

@@ -1,4 +1,15 @@
 import Datastore from "nedb";
+import winston from "winston";
+import { Loggly } from "winston-loggly-bulk";
+
+winston.add(
+  new Loggly({
+    token: process.env.LOGGLY_TOKEN,
+    subdomain: "aperturelabs",
+    tags: ["Winston-NodeJS"],
+    json: true,
+  })
+);
 
 const db = {};
 
@@ -23,6 +34,12 @@ const init = () => {
     filename: "data/store/edges.db",
     autoload: true,
   });
+
+  db.rooms.persistence.setAutocompactionInterval(5000);
+  db.floors.persistence.setAutocompactionInterval(5000);
+  db.devices.persistence.setAutocompactionInterval(5000);
+  db.users.persistence.setAutocompactionInterval(5000);
+  db.edges.persistence.setAutocompactionInterval(5000);
 
   console.log("Data Stores Loaded");
 };

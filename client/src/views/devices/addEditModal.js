@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
 
-const addEditModal = ({ isOpen = false, setIsOpen, device: deviceToEdit }) => {
+const AddEditModal = ({ isOpen = false, setIsOpen, device: deviceToEdit }) => {
   const [device, setDevice] = useState(deviceToEdit || {});
   const [users, setUsers] = useState([]);
   const [floors, setFloors] = useState([]);
@@ -38,7 +38,7 @@ const addEditModal = ({ isOpen = false, setIsOpen, device: deviceToEdit }) => {
             value={device._id}
             disabled={isEdit}
             onChange={({ target }) => {
-              setDevice({ ...device, _id: target.value });
+              setDevice({ ...device, id: target.value });
             }}
           />
         </div>
@@ -120,4 +120,4 @@ const addEditModal = ({ isOpen = false, setIsOpen, device: deviceToEdit }) => {
   );
 };
 
-export default addEditModal;
+export default AddEditModal;

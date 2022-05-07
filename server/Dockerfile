@@ -1,7 +1,9 @@
-FROM node:alpine
-WORKDIR /app
+FROM node:14
+WORKDIR /server
 COPY package.json ./
 COPY yarn.lock ./
-COPY ./ ./
-RUN yarn
+COPY src ./src
+COPY data ./data
+RUN yarn install
+RUN ls -al
 CMD ["yarn", "start"]

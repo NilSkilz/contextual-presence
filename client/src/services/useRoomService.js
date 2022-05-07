@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
+// const baseUrl = '/api';
+const baseUrl = 'http://localhost:3001'
+
 const getPosition = (id) => {
   return {
     x: 20,
@@ -12,14 +15,13 @@ function useRoomService() {
   const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
-    rooms.forEach(room => {
-      updateRoom(room, false)
-    })
-  }, [rooms])
+    rooms.forEach((room) => {
+      updateRoom(room, false);
+    });
+  }, [rooms]);
 
   const getRooms = () => {
-    axios.get('/api/rooms').then(({ data }) => {
-      console.log({ data });
+    axios.get(`${baseUrl}/rooms`).then(({ data }) => {
       setRooms(
         data.map((room) => {
           return { ...room, id: room._id };
@@ -29,24 +31,31 @@ function useRoomService() {
   };
 
   const updateRoom = (room, withUpdate = true) => {
-    axios.put(`/api/rooms/${room._id}`, room).then(({ data }) => {
+    room.data.label = undefined;
+    axios.put(`${baseUrl}/rooms/${room._id}`, room).then(({ data }) => {
       if (withUpdate) getRooms();
     });
   };
 
   const addRoom = () => {
     axios
-      .post('/api/rooms', {
-        _id: rooms.length.toString(),
-        data: { label: `Room ${rooms.length+1}` },
+      .post(`${baseUrl}/rooms`, {
+        data: { name: `Room ${rooms.length + 1}` },
         position: getPosition(rooms.length),
+        sensors: {},
       })
       .then(({ data }) => {
         getRooms();
       });
   };
 
-  return { rooms, setRooms, getRooms, addRoom, updateRoom };
+  const deleteRoom = (room) => {
+    axios.delete(`${baseUrl}/rooms/${room._id}`).then(() => {
+      getRooms();
+    });
+  };
+
+  return { rooms, setRooms, getRooms, addRoom, updateRoom, deleteRoom };
 }
 
 export default useRoomService;

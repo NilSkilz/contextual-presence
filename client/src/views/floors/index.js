@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { CCard, CCardHeader, CCardBody } from '@coreui/react';
-import AddEditModal from './addEditModal';
+import AddEditModal from './AddEditModal';
 import CIcon from '@coreui/icons-react'
 import { cilPencil } from '@coreui/icons'
   
