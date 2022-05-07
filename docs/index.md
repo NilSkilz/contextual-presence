@@ -6,7 +6,7 @@ nav_order: 1
 
 ## Introduction
 
-Contextual-Presence is a [Home Assistant](https://home-assistant.io) integration that uses data from numerous sensors to determine presence in a smart home. 
+Contextual-Presence is a [Home Assistant](https://home-assistant.io){:target="_blank"} integration that uses data from numerous sensors to determine presence in a smart home. 
 
 ### The Basics
 
@@ -19,7 +19,7 @@ Every approach (including this one) has downsides. For myself, I can't use bluet
 
 
 ### What is required
-This project is fairly sensor agnostic. As a minimum, you should really have a simple motion (PIR) sensor in each room, and ideally an [entry/exit sensor](https://github.com/Lyr3x/Roode) on each major thoroughfare. 
+This project is fairly sensor agnostic. As a minimum, you should really have a simple motion (PIR) sensor in each room, and ideally an [entry/exit sensor](https://github.com/Lyr3x/Roode){:target="_blank"} on each major thoroughfare. 
 
 The more sensors the better, especially when it comes to presence detection.
 
