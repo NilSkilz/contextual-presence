@@ -28,7 +28,9 @@ The concept is fairly simple. We start by building a "Map" of the house. The map
 
 #### An Example
 ```
-"Room A" and "Room B" are connected, but there are no other entrances. There is a person in room "A". A PIR sensor is then triggered in room "B". We can therefore determine that the person moved from A to B, and is no longer in A.
+"Room A" and "Room B" are connected, but there are no other entrances. 
+There is a person in room "A". A PIR sensor is then triggered in room "B". 
+We can therefore determine that the person moved from A to B, and is no longer in A.
 ```
 
 While this may seem overly simplistic, it can open the door to some powerful automations.
