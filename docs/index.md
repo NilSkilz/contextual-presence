@@ -1,3 +1,9 @@
+---
+layout: default
+title: Introduction
+nav_order: 1
+---
+
 ## Introduction
 
 Contextual-Presence is a [Home Assistant](https://home-assistant.io) integration that uses data from numerous sensors to determine presence in a smart home. 
