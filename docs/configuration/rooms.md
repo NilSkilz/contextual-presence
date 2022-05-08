@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Configuration
+title: Rooms
 nav_order: 1
-parent: UI Components
+parent: Configuration
 ---
 
 ## Creating Rooms

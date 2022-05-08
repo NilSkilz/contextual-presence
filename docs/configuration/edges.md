@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Configuration
+title: Edges
 nav_order: 2
-parent: UI Components
+parent: Configuration
 ---
 
 ## Creating Edges
