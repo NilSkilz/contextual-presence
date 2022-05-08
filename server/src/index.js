@@ -16,7 +16,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-app.get("/:collection/:id", (req, res) => {
+app.get("/:collection/:id?", (req, res) => {
+  console.log('GET ', req.params.collection)
   if (req.params.id) {
     db[req.params.collection].findOne({ _id: req.params.id }, (err, thing) => {
       res.send(thing);

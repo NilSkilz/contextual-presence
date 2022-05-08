@@ -29,7 +29,7 @@ const RoomNode = ({ room }) => {
   console.log({local})
 
   const roomHelper = entities.find(
-    (e) => e.entity_id === room.entity.entity_id
+    (e) => e.entity_id === room.entity?.entity_id
   );
 
   return (
@@ -39,9 +39,9 @@ const RoomNode = ({ room }) => {
       </div>
       {/* <div>People: {room.occupancy?.length || 0}</div> */}
       <div style={{ display: 'flex', marginTop: '20px' }}>
-        {roomHelper.state}
+        {roomHelper?.state}
       </div>
-      {local.occupancy.map((o, index) => {
+      {local.occupancy?.map((o, index) => {
         return (
           <div key={index} style={{ display: 'flex', marginTop: '20px' }}>
             {o.confidence}

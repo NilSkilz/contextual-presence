@@ -89,6 +89,7 @@ const Dashboard = () => {
         <Button
           color="primary"
           onClick={() => {
+            console.log('Add Room')
             addRoom();
           }}
         >

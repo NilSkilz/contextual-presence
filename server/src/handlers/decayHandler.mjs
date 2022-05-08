@@ -17,7 +17,7 @@ export default DecayHandler;
 
 const getOccupancies = () => {
   db.rooms.find({}, (err, rooms) => {
-    return rooms.filter((r) => r.occupancy.length);
+    return rooms.filter((r) => r.occupancy && r.occupancy.length);
   });
 };
 
