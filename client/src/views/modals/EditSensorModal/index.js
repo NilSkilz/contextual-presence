@@ -127,13 +127,16 @@ const EditSensorModal = ({ isOpen = false, setIsOpen, sensor, saveSensor }) => {
           <div>How quickly is a person expected to leave the area?</div>{' '}
           <div>0 = never</div>
           <div>100 = within a minute</div>
-          <div style={{ marginLeft: '10px', marginRight: '10px', marginTop: '20px'  }}>
+          <div style={{ marginLeft: '10px', marginRight: '10px', marginTop: '20px' }}>
             <Slider
               min={0}
               max={100}
               step={10}
               marks={{ 0: '0', 50: '50', 100: '100' }}
               value={local.decay}
+              onChange={(e) => {
+                setLocal({ ...local, decay: e })
+              }}
             />
           </div>
         </div>

@@ -89,7 +89,7 @@ const Dashboard = () => {
         <Button
           color="primary"
           onClick={() => {
-            console.log('Add Room')
+            console.log('Add Room');
             addRoom();
           }}
         >
@@ -105,6 +105,7 @@ const Dashboard = () => {
             ...rooms.map((room) => {
               return {
                 ...room,
+                style: { width: 200 },
                 data: {
                   label: <RoomNode room={room} />,
                 },

@@ -9,24 +9,26 @@ import {
   getStates,
 } from 'home-assistant-js-websocket';
 
-const hassUrl = 'https://ha.pidgeonsnest.uk';
+const hassUrl = 'https://ha.cracky.co.uk';
 
 const getConnection = () => {
+  console.log('Getting auth')
   return getAuth({
     hassUrl,
     saveTokens: (token) => {
-      // console.log({ token });
+      console.log({ token });
       window.localStorage.setItem('auth', JSON.stringify(token));
     },
     loadTokens: () => {
-      // console.log('LOADING TOKEN');
+      console.log('LOADING TOKEN');
       const token = JSON.parse(window.localStorage.getItem('auth'));
-      // console.log({ token });
+      console.log({ token });
       return Promise.resolve(token);
     },
   })
     .then((auth) => {
-      // console.log('Connected');
+      console.log('Connected');
+      console.log(auth)
       return createConnection({ auth });
     })
     .catch((err) => {
@@ -40,21 +42,31 @@ const getConnection = () => {
 const useHaService = () => {
   const [entities, setEntites] = useState();
   const [isLoading, setIsLoading] = useState(true);
- 
+
   const [connection, setConnection] = useState();
 
   useEffect(() => {
-    getConnection().then((c) => {
-      setConnection(c);
-    });
+    // const token = JSON.parse(window.localStorage.getItem('auth'));
+    console.log('use effect')
+    console.log(connection)
+
+    if (!connection) {
+      getConnection().then((c) => {
+        console.log({ c })
+        if (c) setConnection(c);
+      });
+    }
   }, []);
 
   useEffect(() => {
     if (connection) {
+      console.log('Getting states');
       getStates(connection).then((entities) => {
         setEntites(entities);
-        setIsLoading(false)
+        setIsLoading(false);
       });
+    } else {
+      console.log('Not connected');
     }
   }, [connection]);
 

@@ -10,7 +10,7 @@ const init = (httpServer) => {
   });
 
   io.on("connection", (socket) => {
-    console.log("WebSocket connected");
+    // console.log("WebSocket connected");
     // ...
   });
 

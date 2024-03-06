@@ -25,7 +25,6 @@ const AddEditModal = ({ isOpen = false, setIsOpen, room: roomToEdit }) => {
     axios.get('/api/floors').then(({ data }) => {
       setFloors(data);
       if (!room.floor_id) room.floor_id = data[0]._id;
-      console.log(room);
     });
     axios.get('/api/rooms').then(({ data }) => {
       setRooms(data);

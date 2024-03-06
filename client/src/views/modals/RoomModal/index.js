@@ -5,7 +5,7 @@ import useHaService from '../../../services/useHaService';
 import EditSensorModal from '../EditSensorModal';
 import BaseModal from '../BaseModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencil } from '@fortawesome/free-solid-svg-icons';
+import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { OPERATORS } from '../../../constants';
 import Select from 'react-select';
 
@@ -27,6 +27,14 @@ const RoomModal = ({ isOpen = false, setIsOpen, room, updateRoom }) => {
     console.log({ sensors });
     setLocal({ ...local, sensors });
   };
+
+  const deleteSensor = (sensor) => {
+    const sensors = local.sensors;
+    sensors[sensor.entity.entity_id.replaceAll('.', '___')] = undefined;
+    delete sensors[sensor.entity.entity_id.replaceAll('.', '___')]
+    console.log({ sensors })
+    setLocal({ ...local, sensors })
+  }
 
   if (!local) return null;
 
@@ -85,7 +93,7 @@ const RoomModal = ({ isOpen = false, setIsOpen, room, updateRoom }) => {
               onChange={({ value }) => {
                 const entity = entities.find((e) => e.entity_id === value);
 
-                console.log({entity})
+                console.log({ entity })
 
                 const mutable = { ...local };
                 mutable.entity = entity;
@@ -128,7 +136,8 @@ const RoomModal = ({ isOpen = false, setIsOpen, room, updateRoom }) => {
                     {/* <th></th> */}
                     {/* <th>Value:</th> */}
                     <th style={{ width: '20%' }}></th>
-                    <th style={{ width: '10%' }}></th>
+                    <th style={{ width: '5%' }}></th>
+                    <th style={{ width: '5%' }}></th>
                   </tr>
                   {Object.keys(local.sensors).map((key) => {
                     return (
@@ -136,13 +145,10 @@ const RoomModal = ({ isOpen = false, setIsOpen, room, updateRoom }) => {
                         <td style={{ verticalAlign: 'middle' }}>
                           {key.replace('___', '.')}
                         </td>
-                        <td style={{ verticalAlign: 'middle' }}>{`${
-                          local.sensors[key].key
-                        } ${OPERATORS[local.sensors[key].operator]} ${
-                          local.sensors[key].value
-                        }`}</td>
-                        {/* <td>{OPERATORS[local.sensors[key].operator]}</td> */}
-                        {/* <td>{local.sensors[key].value}</td> */}
+                        <td style={{ verticalAlign: 'middle' }}>{`${local.sensors[key].key
+                          } ${OPERATORS[local.sensors[key].operator]} ${local.sensors[key].value
+                          }`}</td>
+
                         <td>
                           <Button
                             color="link"
@@ -153,6 +159,18 @@ const RoomModal = ({ isOpen = false, setIsOpen, room, updateRoom }) => {
                             }}
                           >
                             <FontAwesomeIcon icon={faPencil} />
+                          </Button>
+                        </td>
+                        <td>
+                          <Button
+                            color="link"
+                            size="sm"
+                            style={{ padding: 0 }}
+                            onClick={() => {
+                              deleteSensor(local.sensors[key]);
+                            }}
+                          >
+                            <FontAwesomeIcon icon={faTrash} />
                           </Button>
                         </td>
                       </tr>
